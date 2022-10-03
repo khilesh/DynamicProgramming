@@ -3,12 +3,14 @@ package org.HashMap.streams;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+/***
+ * https://www.youtube.com/watch?v=t1-YZ6bF-g0
+ * ****/
 
 public class IntegerStreams {
 
@@ -69,20 +71,26 @@ public static void main(String [] args) throws IOException {
 	
 	System.out.println("rowCount ::" + rowCount);
 	
-	
-	System.out.print("Last result");
 	Stream<String> rows2 = Files.lines(Paths.get("/Users/KHILESH/Documents/GitHub/DynamicProgramming/Basic/files/data.txt"));
 	rows2.map(x->x.split(",")).filter(x->x.length ==3).filter(x->Integer.parseInt(x[1])>15).forEach(x->System.out.println(x[0] + " " + x[1] + " " + x[2]));
 	rows2.close();
 	
 	
 	System.out.print("Last result");
-	Stream<String> rows3 = Files.lines(Paths.get("/Users/KHILESH/Documents/GitHub/DynamicProgramming/Basic/files/assessment.txt"));
-	rows2.map(x->x.split(",")).
-			filter(x->x.length ==3).
-			count(x->x[1])
-			//filter(x->Integer.parseInt(x[1])>15).forEach(x->System.out.println(x[0] + " " + x[1] + " " + x[2]));
-	rows2.close();
+	Stream<String> rows3 = Files.lines(Paths.get("/Users/KHILESH/Documents/GitHub/DynamicProgramming/Basic/files/data.txt"));
+	Map<String, Integer> map = new HashMap<>();
+	map = rows3.map(x-> x.split(","))
+			      .filter(x->x.length == 3)
+			      .filter(x->Integer.parseInt(x[1]) > 10)
+					      .collect(Collectors.toMap(
+								  x->x[0],
+							      x->Integer.parseInt(x[1])
+					      ));
+	//rows3.count();
+	rows3.close();
+	for(String key: map.keySet()){
+	System.out.println(key+"" + map.get(key));
+	}
 	
 	
 	
