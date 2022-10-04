@@ -3,6 +3,8 @@ package org.HashMap.streams;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamMain {
 
@@ -25,11 +27,20 @@ public static void  main(String[] args){
 	
 	List<Integer> listEven = new ArrayList<>();
 	
+	// without using streamAPI
 	for(Integer i: list1){
 		if(i %2 ==0) {listEven.add(i);}
 	}
-	System.out.println(list1);
+	System.out.println(listEven);
 	
+	// Using Stream API
+	Stream<Integer> myIntStream = list1.stream();
+	System.out.println("Last Result");
+	System.out.println(myIntStream.filter(x->x%2==0).collect(Collectors.toList()));
+	myIntStream.close();
+	
+	Stream<Integer> myIntStream2 = list1.stream();
+	System.out.println(myIntStream2.filter(x->x>50).collect(Collectors.toList()));
 	
 }
 }
